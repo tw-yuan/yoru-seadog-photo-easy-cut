@@ -140,6 +140,16 @@ cross = (x2 - x1) * (y - y1) - (y2 - y1) * (x - x1)
 4. 前端收到成功回應後，顯示簡短成功回饋，然後載入下一張圖片。
 5. 前端收到失敗回應時，保留目前圖片與切割線，恢復送出按鈕並顯示可重試錯誤。
 
+### 3.1 單人照與單邊可用
+
+若原圖只有一個人，或裁切後只有 A/B 其中一側可用，前端需提供單張輸出模式：
+
+- `single_full`：整張原圖標記為 `yoru` 或 `seadog`。
+- `single_a`：只輸出 A 區，標記為 `yoru` 或 `seadog`。
+- `single_b`：只輸出 B 區，標記為 `yoru` 或 `seadog`。
+
+單張輸出成功後同樣將原圖移入 `finish/`，寫入 `submit` 事件，並記錄 `submit_mode`、`single_label`、`single_region` 與 `output_single`。復原上一張時需支援刪除單張輸出並將原圖移回 `origin/`。
+
 ### 4. 復原上一張
 
 「復原上一張」是 MVP 必備功能。
